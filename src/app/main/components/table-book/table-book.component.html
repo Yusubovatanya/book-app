@@ -1,0 +1,57 @@
+<mat-card>
+  <app-datepicker></app-datepicker>
+
+  <mat-form-field class="search">
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+
+  <div class="mat-elevation-z8 table-box">
+    <!-- loader -->
+    <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
+      <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+      <div class="example-rate-limit-reached" *ngIf="isRateLimitReached">
+        API rate limit has been reached. It will be reset in one minute.
+      </div>
+    </div>
+
+    <div class="example-table-container">
+      <table mat-table [dataSource]="dataSource" matSort class="book-table">
+        <!-- matSortActive="Title" matSortDirection="asc" matSortDisableClear -->
+        <!-- Title Column -->
+        <ng-container matColumnDef="Title">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+          <td mat-cell *matCellDef="let row"> {{row.Title}} </td>
+        </ng-container>
+
+        <!-- PageCount Column -->
+        <ng-container matColumnDef="PageCount">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> PageCount </th>
+          <td mat-cell *matCellDef="let row"> {{row.PageCount}} </td>
+        </ng-container>
+
+        <!-- PublishDate Column -->
+        <ng-container matColumnDef="PublishDate">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> PublishDate </th>
+          <td mat-cell *matCellDef="let row"> {{row.PublishDate | date:"dd.MM.yyyy"}} </td>
+        </ng-container>
+
+        <!-- Description Column -->
+        <ng-container matColumnDef="Description">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+          <td mat-cell *matCellDef="let row"> {{row.Description}} </td>
+        </ng-container>
+
+        <!-- Excerpt Column -->
+        <ng-container matColumnDef="Excerpt">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Excerpt </th>
+          <td mat-cell *matCellDef="let row" class="column_title"> {{row.Excerpt}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"
+          [ngClass]="{'toolbar-row__done': row.isToggle}"></tr>
+      </table>
+    </div>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, 200]"></mat-paginator>
+  </div>
+</mat-card>

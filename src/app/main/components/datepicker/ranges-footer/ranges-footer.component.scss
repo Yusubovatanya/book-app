@@ -1,0 +1,7 @@
+.data-button {
+  font-size: 12px;
+}
+
+:host ::ng-deep .mat-raised-button {
+  padding: 0 5px;
+}
