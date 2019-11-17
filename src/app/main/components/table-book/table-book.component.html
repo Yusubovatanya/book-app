@@ -1,10 +1,16 @@
 <mat-card>
   <app-datepicker></app-datepicker>
-
-  <mat-form-field class="search">
-    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-  </mat-form-field>
-
+  <div class="form-header" fxLayout="row" fxLayoutAlign="space-between end" fxLayoutGap="20px">
+    <mat-form-field class="search">
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+    <div class="export-box">
+      <app-export-excel-button [data]="dataSource ? dataSource.filteredData : []"></app-export-excel-button>
+    </div>
+    <div class="export-box">
+      <app-export-pdf-button [data]="dataSource ? dataSource.filteredData : []"></app-export-pdf-button>
+    </div>
+  </div>
   <div class="mat-elevation-z8 table-box">
     <!-- loader -->
     <div class="example-loading-shade" *ngIf="isLoadingResults || isRateLimitReached">
@@ -54,5 +60,4 @@
     </div>
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100, 200]"></mat-paginator>
   </div>
-  <app-export-excel-button></app-export-excel-button>
 </mat-card>

@@ -9,6 +9,7 @@ import { BookService } from '../../services/book/book.service';
 import { Router } from '@angular/router';
 import { MatDialog, MatSnackBar } from '@angular/material';
 import { EditComponent } from '../edit-book/edit/edit.component';
+import { Data } from 'src/app/core/models/data.model';
 
 
 
@@ -20,7 +21,7 @@ import { EditComponent } from '../edit-book/edit/edit.component';
 export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
   displayedColumns: string[] = ['Title', 'PageCount', 'PublishDate', 'Description', 'Excerpt'];
   dataSource: MatTableDataSource<any>;
-  dataSourceService: any;
+  dataSourceService: Data[];
   isLoadingResults = true;
   isRateLimitReached = false;
 
@@ -112,7 +113,7 @@ export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
             return this.bookCoreService.getBooks();
           })
         ).subscribe(
-          (result: any) => {
+          () => {
             const book = this.bookService.formateDate(editBook);
             this.dataSourceService = this.bookService.changeEditBook(book);
             this.prepareDataSource();

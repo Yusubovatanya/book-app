@@ -1,52 +1,59 @@
 $toggleColor: #dddddd;
-   
-   .search {
-     font-size: 14px;
-     width: 100%;
-   }
 
-   .table-box {
-     .example-loading-shade {
-       position: absolute;
-       top: 0;
-       left: 0;
-       bottom: 56px;
-       right: 0;
-       background: rgba(0, 0, 0, 0.15);
-       z-index: 1;
-       display: flex;
-       align-items: center;
-       justify-content: center;
-     }
+.form-header {
+  margin-bottom: 20px;
+  .search {
+    font-size: 14px;
+    width: 100%;
+  }
 
-     .example-rate-limit-reached {
-       color: #980000;
-       max-width: 360px;
-       text-align: center;
-     }
+  .export-box {
+    margin-bottom: 1.25em;
+  }
+}
 
-     .book-table {
-       width: 100%;
+.table-box {
+  .example-loading-shade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 56px;
+    right: 0;
+    background: rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-       th,
-       td {
-         width: 12%;
-       }
+  .example-rate-limit-reached {
+    color: #980000;
+    max-width: 360px;
+    text-align: center;
+  }
 
-       .column_title {
-         width: 40%;
-       }
-     }
-   }
+  .book-table {
+    width: 100%;
 
-   .toolbar-row__done {
-     background:$toggleColor;
-   }
+    th,
+    td {
+      width: 12%;
+    }
 
-   .book-table tr:hover,
-   .book-table tr:active,
-   .book-table tr:focus {
-    border: 1px solid $toggleColor;
-    background-color: $toggleColor;
-    border-radius: 4px
-   }
+    .column_title {
+      width: 40%;
+    }
+  }
+}
+
+.toolbar-row__done {
+  background: $toggleColor;
+}
+
+.book-table tr:hover,
+.book-table tr:active,
+.book-table tr:focus {
+  border: 1px solid $toggleColor;
+  background-color: $toggleColor;
+  border-radius: 4px
+}
