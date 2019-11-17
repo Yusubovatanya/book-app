@@ -1,0 +1,34 @@
+<div mat-dialog-content>
+  <form [formGroup]="editForm">
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <mat-form-field>
+        <input matInput placeholder="Title" name="Title" formControlName="Title">
+        <mat-error *ngIf="editForm.controls.Title.errors?.required">
+          *Обязательное поле
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="PageCount" name="PageCount" formControlName="PageCount">
+        <mat-error *ngIf="editForm.controls.PageCount.errors?.required">
+          *Обязательное поле
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="PublishDate" name="PublishDate" formControlName="PublishDate">
+        <mat-error *ngIf="editForm.controls.PublishDate.errors?.required">
+          *Обязательное поле
+        </mat-error>
+        <mat-error *ngIf="editForm.controls.PublishDate.errors?.checkValidDate">
+          *Неверный формат даты
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Excerpt" name="Excerpt" formControlName="Excerpt">
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="exit()">Close</button>
+      <button mat-button [mat-dialog-close]="editForm.value" cdkFocusInitial [disabled]="!editForm.valid">Edit</button>
+    </div>
+  </form>
+</div>

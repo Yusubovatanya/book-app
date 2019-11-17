@@ -4,7 +4,6 @@ import { SatCalendarFooter, SatCalendar, SatDatepicker, DateAdapter } from 'satu
 import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { BookService } from 'src/app/main/services/book/book.service';
-import { BookCoreService } from 'src/app/main/services/book-core/book-core.service';
 
 @Component({
   selector: 'app-ranges-footer',
@@ -18,7 +17,6 @@ export class RangesFooter<Date> implements SatCalendarFooter<Date>, OnInit {
 
   constructor(
     private bookService: BookService,
-    private bookCoreService: BookCoreService,
     private calendar: SatCalendar<Date>,
     private datePicker: SatDatepicker<Date>,
     private dateAdapter: DateAdapter<Date>,
@@ -30,7 +28,7 @@ export class RangesFooter<Date> implements SatCalendarFooter<Date>, OnInit {
   }
 
   ngOnInit() {
-    this.ranges = this.bookCoreService.typeSortPeriod;
+    this.ranges = this.bookService.typeSortPeriod;
   }
 
   setRange(range: string) {

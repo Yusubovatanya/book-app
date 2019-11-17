@@ -48,7 +48,7 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)"
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectRow(row)" (dblclick)="editBook(row)"
           [ngClass]="{'toolbar-row__done': row.isToggle}"></tr>
       </table>
     </div>

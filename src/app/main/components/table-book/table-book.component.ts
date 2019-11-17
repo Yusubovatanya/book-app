@@ -1,13 +1,14 @@
 import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
 import { BookCoreService } from '../../services/book-core/book-core.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { merge, forkJoin, of, Subscription } from 'rxjs';
-import { startWith, switchMap, map, catchError } from 'rxjs/operators';
+import { startWith, switchMap, map, catchError, tap } from 'rxjs/operators';
 import { BookService } from '../../services/book/book.service';
 import { Router } from '@angular/router';
+import { MatDialog, MatSnackBar } from '@angular/material';
+import { EditComponent } from '../edit-book/edit/edit.component';
 
 
 
@@ -31,6 +32,8 @@ export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
     private bookCoreService: BookCoreService,
     private bookService: BookService,
     public router: Router,
+    public dialog: MatDialog,
+    private _snackBar: MatSnackBar,
   ) {
   }
 
@@ -38,9 +41,7 @@ export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
     this.changeDateSubscription = this.bookService.getChangeDatePicker().subscribe(date => {
       this.dataSourceService = [];
       this.dataSourceService = this.bookService.filterBookList(date);
-      this.dataSource = new MatTableDataSource(this.dataSourceService);
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+      this.prepareDataSource();
     });
   }
 
@@ -77,17 +78,53 @@ export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
       ).subscribe((data: any) => {
         this.dataSourceService = data;
         this.dataSourceService = this.bookService.prepareDate(this.dataSourceService);
-        this.dataSource = new MatTableDataSource(this.dataSourceService);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        console.log(this.dataSourceService);
+        this.prepareDataSource();
       },
-        error => this.router.navigate(['/main', { action: error }])
+        error => {
+          this._snackBar.open(error.status, 'Error', {
+            duration: 5000,
+          });
+        }
       );
+  }
+
+  prepareDataSource() {
+    this.dataSource = new MatTableDataSource(this.dataSourceService);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   selectRow(row) {
     this.bookService.toggleRow(row.ID);
+  }
+
+  editBook(row) {
+    const dialogRef = this.dialog.open(EditComponent, {
+      width: '250px',
+      data: row,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      const editBook = result;
+      if (result) {
+        this.bookCoreService.editBook(result).pipe(
+          switchMap(() => {
+            return this.bookCoreService.getBooks();
+          })
+        ).subscribe(
+          (result: any) => {
+            const book = this.bookService.formateDate(editBook);
+            this.dataSourceService = this.bookService.changeEditBook(book);
+            this.prepareDataSource();
+          },
+          error => {
+            this._snackBar.open(error.status, 'Error', {
+              duration: 5000,
+            });
+          }
+        );
+      }
+    })
   }
 
   ngOnDestroy() {
