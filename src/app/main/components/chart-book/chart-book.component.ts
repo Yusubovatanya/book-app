@@ -45,12 +45,14 @@ export class ChartBookComponent implements OnInit {
   }
 
   buildChartMonth() {
+    this.barChartLabels = [];
     this.barChartLabels = this.bookService.month;
     this.chartColors = this.bookService.getChartColor(this.barChartLabels);
     this.barChartData[0].data = this.bookService.prepareChartData(this.isMonthChart);
   }
 
   buildChartYear() {
+    this.barChartLabels = [];
     this.barChartLabels = this.bookService.prepareChartDate();
     this.chartColors = this.bookService.getChartColor(this.barChartLabels);
     this.barChartData[0].data = this.bookService.prepareChartData(this.isMonthChart);

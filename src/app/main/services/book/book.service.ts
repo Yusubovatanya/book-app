@@ -10,8 +10,8 @@ import { Data } from 'src/app/core/models/data.model';
   providedIn: 'root'
 })
 export class BookService {
-  data:Data[] = [];
-  years = [];
+  data: Data[] = [];
+  years: any;
   color = '#c0baba';
   colorBg = '#673ab7';
   private changeDate$ = new Subject<boolean>();
@@ -37,8 +37,6 @@ export class BookService {
     'November',
     'December'
   ];
-
-
 
   constructor() { }
 
@@ -122,10 +120,8 @@ export class BookService {
     const arr = this.data.map((book: any) => book.ChartYearPublishDate);
     this.years = arr.filter((v, i, a) => a.indexOf(v) === i);
     if (this.years.length <= 1) {
-      let previous = this.years[0] - 1;
-      let next = this.years[0] + 1;
-      this.years.push(next, next--, next--);
-      this.years.unshift(previous, previous++, previous++);
+      this.years.push(this.years[0] + 1, this.years[0] + 2);
+      this.years.unshift(this.years[0] - 2, this.years[0] - 1)
     }
     return this.years;
   }
