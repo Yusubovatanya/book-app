@@ -16,7 +16,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     MaterialModule,
     DatepickerModule,
-    MatSortModule, 
+    MatSortModule,
     SharedModule,
   ],
   exports: [

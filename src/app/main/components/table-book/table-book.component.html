@@ -7,8 +7,8 @@
     <div class="export-box">
       <app-export-excel-button [data]="dataSource ? dataSource.filteredData : []"></app-export-excel-button>
     </div>
-    <div class="export-box">
-      <app-export-pdf-button [data]="dataSource ? dataSource.filteredData : []"></app-export-pdf-button>
+    <div class="export-box" *ngIf="dataSource">
+      <app-export-pdf-button [data]="dataSource.filteredData"></app-export-pdf-button>
     </div>
   </div>
   <div class="mat-elevation-z8 table-box">

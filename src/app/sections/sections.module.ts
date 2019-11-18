@@ -16,7 +16,7 @@ import { MaterialModule } from '../material/material.module';
     CommonModule,
     SectionsRoutingModule,
     ThemeModule,
-    MiscellaneousModule, 
+    MiscellaneousModule,
     MaterialModule,
   ]
 })

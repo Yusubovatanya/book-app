@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { RangesFooter } from '../ranges-footer/ranges-footer.component';
+
 import { BookService } from 'src/app/main/services/book/book.service';
+import { RangesFooterComponent } from '../ranges-footer/ranges-footer.component';
 
 
 
@@ -12,7 +13,7 @@ import { BookService } from 'src/app/main/services/book/book.service';
 })
 export class DatepickerComponent implements OnInit {
   form: FormGroup;
-  rangesFooter = RangesFooter;
+  rangesFooter = RangesFooterComponent;
   constructor(
     private fb: FormBuilder,
     private bookService: BookService,

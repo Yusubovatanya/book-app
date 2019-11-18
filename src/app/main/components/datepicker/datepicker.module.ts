@@ -5,13 +5,13 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from 'src/app/material/material.module';
-import { RangesFooter } from './ranges-footer/ranges-footer.component';
+import { RangesFooterComponent } from './ranges-footer/ranges-footer.component';
 
 
 @NgModule({
   declarations: [
     DatepickerComponent,
-    RangesFooter,
+    RangesFooterComponent,
   ],
   imports: [
     CommonModule,
@@ -26,7 +26,7 @@ import { RangesFooter } from './ranges-footer/ranges-footer.component';
     DatepickerComponent,
   ],
   entryComponents: [
-    RangesFooter,
+    RangesFooterComponent,
   ],
 })
 export class DatepickerModule { }

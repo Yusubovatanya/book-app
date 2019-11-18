@@ -3,10 +3,10 @@ export class Data {
   Description: string;
   Title: string;
   PageCount: number;
-  PublishDate: string;
+  PublishDate: string | number;
   Excerpt: string;
   isToggle?: boolean;
   oldFormat?: string;
   ChartMonthPublishDate?: string;
-  ChartYearPublishDate?: string;
+  ChartYearPublishDate?: number;
 }

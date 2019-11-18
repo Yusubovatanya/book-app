@@ -45,7 +45,7 @@ export class EditComponent implements OnInit {
       Description: [this.data.Description, [Validators.required]],
       Excerpt: [this.data.Excerpt, []],
       ID: [this.data.ID, [Validators.required]],
-    })
+    });
   }
 
   checkValidDate(form: AbstractControl) {

@@ -11,7 +11,7 @@ import { BookService } from 'src/app/main/services/book/book.service';
   styleUrls: ['./ranges-footer.component.scss']
 })
 
-export class RangesFooter<Date> implements SatCalendarFooter<Date>, OnInit {
+export class RangesFooterComponent<Date> implements SatCalendarFooter<Date>, OnInit {
   ranges: any;
   destroyed = new Subject<void>();
 
@@ -24,7 +24,7 @@ export class RangesFooter<Date> implements SatCalendarFooter<Date>, OnInit {
   ) {
     calendar.stateChanges
       .pipe(takeUntil(this.destroyed))
-      .subscribe(() => cdr.markForCheck())
+      .subscribe(() => cdr.markForCheck());
   }
 
   ngOnInit() {
@@ -44,11 +44,11 @@ export class RangesFooter<Date> implements SatCalendarFooter<Date>, OnInit {
         break;
       case 'all':
           this.calendar.beginDate = this.dateAdapter.deserialize(moment(this.bookService.maxObj.PublishDate, 'YYYY').toDate());
-          this.calendar.endDate = this.dateAdapter.deserialize(moment().endOf('year').toDate());  
+          this.calendar.endDate = this.dateAdapter.deserialize(moment().endOf('year').toDate());
     }
     this.calendar.activeDate = this.calendar.beginDate;
     this.calendar.beginDateSelectedChange.emit(this.calendar.beginDate);
-    const rageDate = { begin: this.calendar.beginDate, end: this.calendar.endDate }
+    const rageDate = { begin: this.calendar.beginDate, end: this.calendar.endDate };
     this.calendar.dateRangesChange.emit(rageDate);
     this.datePicker.close();
   }

@@ -1,5 +1,8 @@
-.data-button {
-  font-size: 12px;
+.action-button {
+  margin-bottom: 10px;
+  .data-button {
+    font-size: 12px;
+  }
 }
 
 :host ::ng-deep .mat-raised-button {

@@ -3,6 +3,7 @@ import { ChartOptions, ChartType, ChartDataSets } from 'chart.js';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { Label } from 'ng2-charts';
 import { BookService } from '../../services/book/book.service';
+import { Data } from 'src/app/core/models/data.model';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { BookService } from '../../services/book/book.service';
   styleUrls: ['./chart-book.component.scss']
 })
 export class ChartBookComponent implements OnInit {
-  data: any[];
+  data: Data[];
   isMonthChart = true;
   public barChartOptions: ChartOptions = {
     responsive: true,
@@ -39,18 +40,19 @@ export class ChartBookComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.chartColors = this.bookService.chartColor;
     this.data = this.bookService.formateChartDate();
     this.checkChart();
   }
 
   buildChartMonth() {
     this.barChartLabels = this.bookService.month;
+    this.chartColors = this.bookService.getChartColor(this.barChartLabels);
     this.barChartData[0].data = this.bookService.prepareChartData(this.isMonthChart);
   }
 
   buildChartYear() {
     this.barChartLabels = this.bookService.prepareChartDate();
+    this.chartColors = this.bookService.getChartColor(this.barChartLabels);
     this.barChartData[0].data = this.bookService.prepareChartData(this.isMonthChart);
   }
 

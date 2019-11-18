@@ -9,7 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
-    EditComponent, 
+    EditComponent,
   ],
   imports: [
     CommonModule,

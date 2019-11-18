@@ -3,6 +3,7 @@ import * as moment from 'moment';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import { Data } from 'src/app/core/models/data.model';
+import { ExportService } from '../services/export.service';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 
@@ -13,7 +14,9 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 })
 export class ExportPdfButtonComponent implements OnInit {
   @Input() data: Data[];
-  constructor() { }
+  constructor(
+    private exportService: ExportService,
+  ) { }
 
   ngOnInit() {
 
@@ -24,13 +27,13 @@ export class ExportPdfButtonComponent implements OnInit {
       content: [
         {
           layout: 'lightHorizontalLines',
-          style: [ 'header', 'anotherStyle' ],
+          style: ['header', 'anotherStyle'],
           table: {
             // headers are automatically repeated if the table spans over multiple pages
             // you can declare how many rows should be treated as headers
             headerRows: 1,
             widths: ['13%', '12%', '15%', '20%', '40%'],
-            body: this.prepareData(),
+            body: this.exportService.preparePdfData(this.data),
           }
         }
       ],
@@ -48,18 +51,8 @@ export class ExportPdfButtonComponent implements OnInit {
     pdfMake.createPdf(documentDefinition).open();
   }
 
-  prepareData() {
-    let arr = [];
-    arr.push(['Title', 'PageCount', 'PublishDate', 'Description', 'Excerpt']);
-    this.data.forEach((book: Data) => {
-      let part = [book.Title, book.PageCount, this.prepareTableDate(book.PublishDate), book.Description, book.Excerpt];
-      arr.push(part);
-    })
-    return arr;
-  }
-
-
   prepareTableDate(date) {
     return moment(date).format('YYYY-MM-DD')
   }
 }
+

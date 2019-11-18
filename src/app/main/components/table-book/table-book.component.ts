@@ -125,7 +125,7 @@ export class TableBookComponent implements OnInit, AfterViewInit, OnDestroy {
           }
         );
       }
-    })
+    });
   }
 
   ngOnDestroy() {
